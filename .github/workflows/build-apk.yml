@@ -28,6 +28,18 @@ jobs:
         with:
           gradle-version: '8.7'
 
+      - name: Crear clave de firma
+        run: |
+          keytool -genkeypair -v \
+            -keystore release.keystore \
+            -alias optimiza \
+            -keyalg RSA \
+            -keysize 2048 \
+            -validity 10000 \
+            -storepass optimiza123 \
+            -keypass optimiza123 \
+            -dname "CN=OptimizaTuDevice, OU=App, O=OptimizaTuDevice, L=Mexico, ST=CDMX, C=MX"
+
       - name: Compilar APK Release
         run: gradle assembleRelease --no-daemon
 
